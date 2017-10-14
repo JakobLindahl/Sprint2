@@ -30,12 +30,12 @@ public abstract class Person implements IPerson {
 
     @Override
     public Boolean comparePersonnummer(String personnummer) {
-        return this.personnummer.equals(personnummer);
+        return this.personnummer.equals(personnummer.trim().replace("-", ""));
     }
 
     @Override
     public Boolean compareNamn(String namn) {
-        return this.namn.equalsIgnoreCase(namn);
+        return this.namn.equalsIgnoreCase(namn.trim());
     }
 
     private String toFile() {

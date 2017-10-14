@@ -18,7 +18,6 @@ public class Program {
             if (input == null || input.equals("")) {
                 System.exit(0);
             }
-            input = input.replace("-", "").trim();
             boolean funnen = false;
 
             for (IPerson person : personer) {
