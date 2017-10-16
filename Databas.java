@@ -5,14 +5,14 @@ import java.nio.file.*;
 import java.time.*;
 import java.util.*;
 
-public class Databas {
+public final class Databas{
 
     private static final Path customers = Paths.get("src\\sprint2\\customers.txt");
     private static final LocalDate yearago = LocalDate.now().minusYears(1);
 
-    private List<IPerson> personer = new ArrayList<>();
+    private static final List<IPerson> personer = new ArrayList<>();
 
-    public Databas() {
+    public Databas(){
 
         try (BufferedReader br = Files.newBufferedReader(customers);) {
 
@@ -32,10 +32,11 @@ public class Databas {
                 }
 
             }
-        } catch (IOException e) {
-            System.out.println("något gick fel");
+        } catch (FileNotFoundException e) {
+            System.out.println("det gick inte att hitta filen");
+        } catch (IOException ex) {
+            System.out.println("IOException");
         }
-
     }
 
     public List<IPerson> getPersoner() {

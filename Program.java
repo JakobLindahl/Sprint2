@@ -21,13 +21,9 @@ public class Program {
             boolean funnen = false;
 
             for (IPerson person : personer) {
-                if (person.compareNamn(input) || person.comparePersonnummer(input)) {
-
-                    funnen = true;
-                    if (person instanceof isKund) {
-                        person.addToFile();
-                    }
+                if (person.compare(input)) {
                     person.printKund();
+                    funnen = true;
                 }
             }
             if (!funnen) {
