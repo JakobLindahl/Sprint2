@@ -2,12 +2,12 @@ package sprint2;
 
 import java.io.*;
 import java.nio.file.*;
-import java.nio.file.StandardOpenOption;
+import static java.nio.file.StandardOpenOption.*;
 import java.time.*;
 
 public abstract class Person implements IPerson {
 
-    public Path log = Paths.get("src\\sprint2\\log.txt");
+    private final Path log = Paths.get("src\\sprint2\\log.txt");
 
     private final String namn;
     private final String personnummer;
@@ -17,33 +17,42 @@ public abstract class Person implements IPerson {
         this.personnummer = personnummer;
     }
 
-    private void addToFile() {
-        try (PrintWriter output = new PrintWriter(Files.newBufferedWriter(log, StandardOpenOption.CREATE, StandardOpenOption.APPEND))) {
+    protected String getNamn() {
+        return namn;
+    }
+
+    protected String getPersonnummer() {
+        return personnummer;
+    }
+    
+
+    @Override
+    public void addToFile() {
+        try (PrintWriter output = new PrintWriter(Files.newBufferedWriter(log, CREATE, APPEND))) {
             output.append(toFile());
 
         } catch (IOException e) {
-            System.out.println("Något gick fel vid inläsningen av filen");
+            System.out.println("Något gick med output strömmen till log filen");
         }
 
     }
+
     @Override
-    public Boolean compare(String namnorpers){
-        if (comparePersonnummer(namnorpers)||compareNamn(namnorpers)) {
-            addToFile();
-            return true;
-        }
-        return false;
-    }
-
     public Boolean comparePersonnummer(String personnummer) {
-        return this.personnummer.equals(personnummer.trim().replace("-", ""));
+        personnummer = personnummer.replace("-", "").trim();
+        
+        if (personnummer.length()==12) {
+            personnummer= personnummer.substring(2);
+        }
+        return this.personnummer.equals(personnummer);
     }
 
+    @Override
     public Boolean compareNamn(String namn) {
         return this.namn.equalsIgnoreCase(namn.trim());
     }
 
     private String toFile() {
-        return namn + ", " + personnummer + "\n" + LocalDate.now() + "\n";
+        return getPersonnummer() + ", " + getNamn() + "\n" + LocalDate.now() + "\n";
     }
 }

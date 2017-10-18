@@ -8,7 +8,7 @@ public class isKund extends Person {
 
     @Override
     public void printKund() {
-        System.out.println("Personen är en nuvarande kund hos oss");
+        System.out.println(getNamn() + " är en nuvarande kund hos oss");
     }
 
 }

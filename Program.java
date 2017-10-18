@@ -5,10 +5,11 @@ import javax.swing.*;
 
 public class Program {
     
-    List<IPerson> personer;
+    private final List<IPerson> personer;
 
     public Program() {
         Databas load = new Databas();
+        load.Databas();
         personer = load.getPersoner();
     }
     
@@ -19,10 +20,12 @@ public class Program {
                 System.exit(0);
             }
             boolean funnen = false;
-
             for (IPerson person : personer) {
-                if (person.compare(input)) {
+                if (person.compareNamn(input)||person.comparePersonnummer(input)) {
                     person.printKund();
+                    if (person instanceof isKund) {
+                        person.addToFile();
+                    }
                     funnen = true;
                 }
             }
